@@ -1,0 +1,31 @@
+This small python script takes a line interface in a 2D gmsh mesh file
+and creates zero-thickness quad elements, connected properly, in its place.
+This was created in response to a couple questions on scicomp.stackexchange
+where people were looking for this sort of utility.
+
+This script is a first-draft, and as such is likely to have some *very*
+low-hanging fruit for performance gains, but it appears to work well
+for reasonable meshes.
+
+
+To use:
+
+1) create a 2D mesh. It does not matter if the elements are tris or quads.
+
+2) ensure that the "area" of the 2D mesh is partitioned into two Physical ID groups.
+   This is necessary as it was the easiest way to determine the elements on each side
+   of a crack.
+
+3) Give your crack (does not have to span the geometry) a unique physical ID, ensure that
+   (crack Physical ID +1 ) is not used anywhere else. This is just a small quirk of the 
+   script since I was in a hurry, but could obviously be fixed. (Crack physical ID + 1)
+   will be the physical ID of the resulting new zero-thickness quads.
+
+4) Run the script:
+   python gmsh_crack.py -f <mesh_name>.msh -t <"top part" mesh physical ID> -b <"bottom part" mesh physical ID> -c <crack physical id>
+
+5) the script will generate a new mesh file: cracked_(your_mesh_name).msh
+
+
+I have included a .geo file that is a minimal working example: a square with a crack in the middle.
+This should be illustrative to clear up any confusion in this documentation.
