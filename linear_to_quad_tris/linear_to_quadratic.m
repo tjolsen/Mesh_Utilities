@@ -2,7 +2,10 @@ function [QT,Points] = linear_to_quadratic(t,p)
 % LINEAR_TO_QUADRATIC
 %  
 % Refine a linear triangle mesh to a quadratic triangle mesh, following a
-% reasonably conventional node ordering (pardon my ASCII art...):
+% reasonably conventional node ordering (pardon my ASCII art...). The code
+% is developed in response to a question on scicomp.stackexchange.com:
+% https://scicomp.stackexchange.com/questions/27822/quadratic-trial-functions-for-a-2d-fem-calculation
+%
 %
 % 3
 % |  \
@@ -24,6 +27,11 @@ function [QT,Points] = linear_to_quadratic(t,p)
 %    - QT: Connectivity of quadratic triangles (first three of each tri are
 %          same as linear mesh)
 %    - Points: All point coordinates (including inserted points)
+%
+%
+% License: This code is free to use/modify, subject to an MIT license. If
+% you find it helpful, feel free to drop me a line and say so!
+% This code is hosted on my personal github page: https://github.com/tjolsen
 
 
 nt = size(t,1);
